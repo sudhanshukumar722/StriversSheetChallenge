@@ -1,0 +1,71 @@
+#include <bits/stdc++.h> 
+ void Merge(vector<int>&arr,int low,int mid,int high,int *ans)
+  {
+      int n1=mid-low+1,n2=high-mid;
+      int a1[n1],a2[n2];
+      for(int i=0;i<n1;i++)
+      {
+          a1[i]=arr[i+low];
+      }
+      for(int j=0;j<n2;j++)
+      {
+          a2[j]=arr[mid+j+1];
+      }
+      int i=0,j=0,k=low;
+      int x=i,y=j;
+      while(x<n1 and y<n2)
+      {
+          if(a1[x]>2*a2[y])
+              {
+                *ans=*ans+(n1-x);
+                y++;
+              }  
+              else{ x++;}
+           
+      }
+      
+      while(i<n1 and j<n2)
+      {
+          
+            if (a1[i] > a2[j]) 
+            {
+              arr[k++] = a2[j++];
+            }
+            else
+            {
+                arr[k++] = a1[i++];
+            }
+        }
+        while (i < n1) {
+            arr[k++] = a1[i++];
+        }
+        while (j < n2) {
+            arr[k++] = a2[j++];
+        }
+    }
+ void count(vector<int>&arr,int low,int high,int*ans)
+  {
+   if (high <= low) {
+     return;
+   }
+   int mid = (high + low) / 2;
+   count(arr, low, mid, ans);
+   count(arr, mid + 1, high, ans);
+   Merge(arr, low, mid, high, ans);
+ }
+int reversePairs(vector<int> &arr, int n){
+	// // Write your code here.
+	// int cnt=0;
+    //     for (int i = 0; i < n; i++) {
+	// 		for(int j=i+1;j<n;j++)
+	// 		{
+	// 			if(arr[i]>2*arr[j])
+	// 			cnt++;
+	// 		}
+    //     }
+	// 	return cnt;
+	 int low=0,high=arr.size()-1;
+        int ans=0;
+        count(arr,low,high,&ans);
+        return ans;
+    }
