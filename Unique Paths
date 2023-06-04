@@ -1,0 +1,14 @@
+#include <bits/stdc++.h> 
+int uniquePaths(int m, int n) {
+	// Write your code here.
+	// if (m == 1 || n == 1)
+    //     return 1;
+    // return uniquePaths(m - 1, n)
+    //        + uniquePaths(m, n - 1);
+	 int path = 1;
+    for (int i = n; i < (m + n - 1); i++) {
+        path =path*i;
+        path =path/ (i - n + 1);
+    }
+    return path;
+}
