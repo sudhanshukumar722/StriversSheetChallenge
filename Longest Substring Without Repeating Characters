@@ -1,0 +1,36 @@
+#include <bits/stdc++.h> 
+int uniqueSubstrings(string input)
+{
+    //Write your code here
+    // set<char>st;
+    // for(int i=0;i<input.size();i++)
+    // {
+    //     st.insert(input[i]);
+    // }
+    // return st.size();
+    map<char, int>visited;
+    int maximum_length = 0;
+ 
+    // Starting the initial point of window to index 0
+    int start = 0;
+ 
+    for(int end = 0; end < input.length(); end++)
+    {
+         
+        // Checking if we have already seen the element or
+        // not
+        if (visited.find(input[end]) != visited.end())
+        {
+             
+            // If we have seen the number, move the start
+            // pointer to position after the last occurrence
+            start = max(start, visited[input[end]] + 1);
+        }
+ 
+        // Updating the last seen value of the character
+        visited[input[end]] = end;
+        maximum_length = max(maximum_length,
+                             end - start + 1);
+    }
+    return maximum_length;
+}
