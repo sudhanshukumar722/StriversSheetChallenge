@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+int longestSubSeg(vector<int> &arr , int n, int k){
+    // Write your code here.
+   int o=0,z=0,i=0,mx=0;
+        deque<int>dq;
+
+        while(i<n)
+        {
+            if(arr[i]==1)
+            {
+               o++;
+            }
+            else 
+            {
+                if(k==0)
+                {
+                 mx=max(o,mx);
+                 o=0;i++;
+                 continue;
+                }
+                if(dq.size()<k)
+                {
+                    dq.push_back(i);
+                    o++;
+                }
+                else
+                {
+                    if(!dq.empty())
+                    { 
+                        int first=dq.front();
+                        dq.pop_front();
+                        o=i-first;
+                        dq.push_back(i);
+                    }
+
+                }
+
+            }
+            
+            mx=max(o,mx);
+            i++;
+                  }
+    return mx;
+}
